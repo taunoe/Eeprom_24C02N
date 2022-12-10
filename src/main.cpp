@@ -15,10 +15,23 @@ const int MEM_SIZE_BYTES = 256;
 /*
   Write Byte
 */
-void write_byte(uint8_t word_addr, uint8_t data) {
+void write_byte(int word_addr, uint8_t data) {
   Wire.beginTransmission(DEVICE_ADDR);
   Wire.write(word_addr);
   Wire.write(data);
+  Wire.endTransmission();
+}
+
+/*
+  Write array to eepromm
+*/
+void write_array(uint8_t word_addr, int data[], int size) {
+  Wire.beginTransmission(DEVICE_ADDR);
+  Wire.write(word_addr);
+  for (int i = 0; i < size; i++)
+  {
+    Wire.write(data[i]);
+  }
   Wire.endTransmission();
 }
 
@@ -168,8 +181,12 @@ void setup() {
   //write_byte(254, 105);
 
   //print_ascii_table();
-  //print_char_table();
+  print_char_table();
   //print_binary();
+  /*
+  int my_data[10] = {};
+
+  write_array(1, my_data, 10);
 
   int data[10];
   read_to_array(1, data, 10);
@@ -178,7 +195,7 @@ void setup() {
   {
     Serial.print(data[i]);
   }
-  
+  */
 
 
 }
